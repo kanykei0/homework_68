@@ -1,6 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axiosApi from "../../axiosApi";
-import { tasksList } from "../../type";
+import { taskProps, tasksList } from "../../type";
 import { RootState } from "../../app/store";
 
 export const fetchTasks = createAsyncThunk("tasks/fetchTasks", async () => {
@@ -22,5 +22,12 @@ export const deleteTask = createAsyncThunk<void, string, { state: RootState }>(
   "tasks/deleteTask",
   async (id) => {
     await axiosApi.delete(`tasks/${id}.json`);
+  }
+);
+
+export const createNewTask = createAsyncThunk(
+  "tasks/createNewTask",
+  async (newTask: taskProps) => {
+    await axiosApi.post<tasksList>("tasks.json", newTask);
   }
 );
