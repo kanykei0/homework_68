@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../app/store";
 import { useEffect } from "react";
-import { fetchTasks } from "./ToDoThunks";
+import { fetchTasks, toggleTaskStatus } from "./ToDoThunks";
 
 const ToDoList = () => {
   const tasks = useSelector((state: RootState) => state.tasks.tasks);
@@ -10,6 +10,15 @@ const ToDoList = () => {
   useEffect(() => {
     dispatch(fetchTasks());
   }, [dispatch]);
+
+  const checkboxChange = async (taskId: string) => {
+    if (tasks) {
+      await dispatch(
+        toggleTaskStatus({ id: taskId, status: !tasks[taskId].status })
+      );
+      await dispatch(fetchTasks());
+    }
+  };
 
   return (
     <>
@@ -22,6 +31,8 @@ const ToDoList = () => {
                 className="form-check-input"
                 type="checkbox"
                 checked={tasks[key].status}
+                name="status"
+                onChange={() => checkboxChange(key)}
               />
             </div>
           ))
