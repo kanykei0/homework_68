@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../app/store";
 import { useEffect } from "react";
-import { fetchTasks, toggleTaskStatus } from "./ToDoThunks";
+import { deleteTask, fetchTasks, toggleTaskStatus } from "./ToDoThunks";
 
 const ToDoList = () => {
   const tasks = useSelector((state: RootState) => state.tasks.tasks);
@@ -20,6 +20,11 @@ const ToDoList = () => {
     }
   };
 
+  const onDeleteTask = async (id: string) => {
+    await dispatch(deleteTask(id));
+    await dispatch(fetchTasks());
+  };
+
   return (
     <>
       <div>
@@ -34,6 +39,12 @@ const ToDoList = () => {
                 name="status"
                 onChange={() => checkboxChange(key)}
               />
+              <button
+                onClick={() => onDeleteTask(key)}
+                className="btn btn-danger ms-4"
+              >
+                delete
+              </button>
             </div>
           ))
         ) : (
