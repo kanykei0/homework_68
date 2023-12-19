@@ -28,9 +28,9 @@ const ToDoForm = () => {
   };
 
   return (
-    <form className="d-flex align-items-center" onSubmit={onFormSubmit}>
+    <form className="d-flex align-items-center mt-5" onSubmit={onFormSubmit}>
       <div className="mb-3 col-5">
-        <label htmlFor="task" className="form-label">
+        <label htmlFor="task" className="form-label h2 mb-4">
           Add new task
         </label>
         <input
@@ -43,7 +43,7 @@ const ToDoForm = () => {
           required
         />
       </div>
-      <button className="btn btn-success mt-3 ms-3">
+      <button className="btn btn-success mt-5 ms-3">
         {isLoading ? <ButtonSpinner /> : "add"}
       </button>
     </form>

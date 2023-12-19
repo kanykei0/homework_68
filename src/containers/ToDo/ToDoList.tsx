@@ -32,25 +32,27 @@ const ToDoList = () => {
       <div>
         {tasks ? (
           Object.keys(tasks).map((key) => (
-            <div key={key}>
-              <h4>{tasks[key].task}</h4>
-              <input
-                className="form-check-input"
-                type="checkbox"
-                checked={tasks[key].status}
-                name="status"
-                onChange={() => checkboxChange(key)}
-              />
-              <button
-                onClick={() => onDeleteTask(key)}
-                className="btn btn-danger ms-4"
-              >
-                {isLoading ? <ButtonSpinner /> : "delete"}
-              </button>
+            <div key={key} className="card shadow mt-3 p-3">
+              <div className="card-body d-flex">
+                <input
+                  className="form-check-input mt-2 me-4"
+                  type="checkbox"
+                  checked={tasks[key].status}
+                  name="status"
+                  onChange={() => checkboxChange(key)}
+                />
+                <h4>{tasks[key].task}</h4>
+                <button
+                  onClick={() => onDeleteTask(key)}
+                  className="btn btn-danger ms-auto"
+                >
+                  {isLoading ? <ButtonSpinner /> : "delete"}
+                </button>
+              </div>
             </div>
           ))
         ) : (
-          <h1 className="text-center">Empty</h1>
+          <h2 className="text-center mt-5">Empty</h2>
         )}
       </div>
     </>
