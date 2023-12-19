@@ -1,11 +1,14 @@
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "../../app/store";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../app/store";
 import { useState } from "react";
 import { createNewTask, fetchTasks } from "../ToDo/ToDoThunks";
+import ButtonSpinner from "../Spinner/BtnSpinner";
 
 const ToDoForm = () => {
   const dispatch: AppDispatch = useDispatch();
   const [task, setTask] = useState<string>("");
+
+  const isLoading = useSelector((state: RootState) => state.tasks.isLoading);
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTask(e.target.value);
@@ -37,9 +40,12 @@ const ToDoForm = () => {
           name="task"
           value={task}
           onChange={onChange}
+          required
         />
       </div>
-      <button className="btn btn-success mt-3 ms-3">add</button>
+      <button className="btn btn-success mt-3 ms-3">
+        {isLoading ? <ButtonSpinner /> : "add"}
+      </button>
     </form>
   );
 };

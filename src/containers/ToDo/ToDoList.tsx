@@ -2,10 +2,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../app/store";
 import { useEffect } from "react";
 import { deleteTask, fetchTasks, toggleTaskStatus } from "./ToDoThunks";
+import ButtonSpinner from "../Spinner/BtnSpinner";
 
 const ToDoList = () => {
   const tasks = useSelector((state: RootState) => state.tasks.tasks);
   const dispatch: AppDispatch = useDispatch();
+  const isLoading = useSelector((state: RootState) => state.tasks.isLoading);
 
   useEffect(() => {
     dispatch(fetchTasks());
@@ -43,7 +45,7 @@ const ToDoList = () => {
                 onClick={() => onDeleteTask(key)}
                 className="btn btn-danger ms-4"
               >
-                delete
+                {isLoading ? <ButtonSpinner /> : "delete"}
               </button>
             </div>
           ))
